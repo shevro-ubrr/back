@@ -18,3 +18,4 @@ courses_to_words = {
 }
 
 words_to_courses = {v: k for k, v in courses_to_words.items()}
+

@@ -1,9 +1,10 @@
-from fastapi import APIRouter, Cookie, HTTPException, status
+from fastapi import APIRouter, Cookie, HTTPException, status, Response
 
 from course import courses_to_words, words_to_courses
 from db.crud import get_user_info, create_user
 from random import randint
 from db.database import users_collection
+from generator import generate_username
 
 router = APIRouter()
 
@@ -98,3 +99,16 @@ async def start_course(keyword: str, username: str = Cookie(...)):
     return {
         "status": "success",
     }
+
+@router.get("/set-cookie")
+def set_cookie(response: Response):
+    response.set_cookie(
+        key="auth_token",
+        value=generate_username(),
+        max_age=3600,
+        httponly=True,  # Защита от XSS
+        secure=True,    # Только HTTPS!
+        samesite="none",  # Разрешаем кросс-доменные запросы
+    )
+    return {"message": "Кука установлена"}
+
