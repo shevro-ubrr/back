@@ -103,7 +103,7 @@ async def start_course(keyword: str, username: str = Cookie(...)):
 @router.get("/set-cookie")
 def set_cookie(response: Response):
     response.set_cookie(
-        key="auth_token",
+        key="username",
         value=generate_username(),
         max_age=3600,
         httponly=True,  # Защита от XSS
