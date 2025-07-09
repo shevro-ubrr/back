@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Cookie, HTTPException, status, Response
+from fastapi import APIRouter, Cookie, HTTPException, status, Response, Request
 
 from course import courses_to_words, words_to_courses
 from db.crud import get_user_info, create_user
@@ -101,7 +101,9 @@ async def start_course(keyword: str, username: str = Cookie(...)):
     }
 
 @router.get("/set-cookie")
-def set_cookie(response: Response):
+def set_cookie(request: Request, response: Response):
+    if "username" in request.cookies:
+        return {"message": "Кука уже существует"}
     response.set_cookie(
         key="username",
         value=generate_username(),
