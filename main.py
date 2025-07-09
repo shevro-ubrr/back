@@ -11,7 +11,8 @@ origins = [
     'https://localhost',
     'https://localhost:3000',
     'https://localhost:8000',
-    'https://front-cfi9jc2dh-wswfws-projects.vercel.app/'
+    'https://front-cfi9jc2dh-wswfws-projects.vercel.app/',
+    'https://*.vercel.app',
 ]
 
 app.add_middleware(
