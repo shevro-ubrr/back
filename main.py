@@ -8,9 +8,9 @@ app = FastAPI()
 app.include_router(router)
 
 origins = [
-    'http://localhost',
-    'http://localhost:3000',
-    'http://localhost:8000',
+    'https://localhost',
+    'https://localhost:3000',
+    'https://localhost:8000',
     'https://front-cfi9jc2dh-wswfws-projects.vercel.app/'
 ]
 
@@ -20,6 +20,7 @@ app.add_middleware(
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
+
 )
 
 if __name__ == "__main__":
