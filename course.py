@@ -11,6 +11,7 @@ class Course:
     step_count: int
     steps: list[Step]
 
+
 courses_to_words = {
     "Ценные бумаги": "paper",
     "Личный и семейный бюджет": "money",

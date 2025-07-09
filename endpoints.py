@@ -5,6 +5,7 @@ from db.crud import get_user_info, create_user
 from random import randint
 from db.database import users_collection
 from generator import generate_username
+from ai import chat, ChatRequest, FullRequest, UserProfile
 
 router = APIRouter()
 
@@ -114,3 +115,16 @@ def set_cookie(request: Request, response: Response):
     )
     return {"message": "Кука установлена"}
 
+@router.post("/ask_chat")
+async def ask_chat(chat_request: ChatRequest, username: str = Cookie(...)):
+    user = await get_user_info(username)
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Failed to fetch user"
+        )
+
+    answer = await chat(FullRequest(user_profile=UserProfile(), **chat_request.dict()))
+    return {
+        "answer": answer
+    }
